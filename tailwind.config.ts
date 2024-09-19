@@ -3,6 +3,9 @@ import type { Config } from "tailwindcss";
 export default {
   darkMode: 'selector',
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
+  safelist: [
+    'border-red-600',
+  ],
   theme: {
     extend: {
       fontFamily: {

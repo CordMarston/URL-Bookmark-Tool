@@ -6,7 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-
+import Nav  from './components/ui/nav';
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -32,7 +32,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="flex flex-col h-screen w-screen bg-gradient-to-b from-gray-900 to-gray-800">
+          <Nav/>
+          <div className="grow flex flex-col items-center w-screen justify-center">
+            {children}
+          </div>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
