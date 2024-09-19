@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  dev_remix:
+    tty: true
+    container_name: dev_remix
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+    ports:
+      - '5173:5173'
+      - '4201:4201'
+    volumes:
+      - .:/myapp
+      - /app/node_modules
+    networks:
+      - npmnetwork
+networks:
+    npmnetwork:
+        external: true
