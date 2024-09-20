@@ -4,8 +4,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { authenticator } from "~/services/auth.server";
 import Nav  from './components/ui/nav';
 import "./tailwind.css";
 
@@ -22,7 +24,13 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export let loader: LoaderFunction = async ({ request }) => {
+  return await authenticator.isAuthenticated(request);
+};
+
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useLoaderData();
   return (
     <html lang="en" className="dark">
       <head>
@@ -33,7 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div className="flex flex-col h-screen w-screen bg-gradient-to-b from-gray-900 to-gray-800">
-          <Nav/>
+          <Nav data={data}/>
           <div className="grow flex flex-col items-center w-screen justify-center">
             {children}
           </div>
