@@ -3,6 +3,7 @@ import { GoogleStrategy } from 'remix-auth-google'
 import { Authenticator } from "remix-auth";
 import { sessionStorage } from "./session.server";
 import { prisma } from "./prisma.server";
+import { User } from '@prisma/client'
 
 const createUser = async (profile:any) => {
 
@@ -90,7 +91,7 @@ let googleStrategy = new GoogleStrategy(
 )
 
 
-export let authenticator = new Authenticator(sessionStorage, {
+export let authenticator = new Authenticator<User>(sessionStorage, {
   throwOnError: true
 });
 

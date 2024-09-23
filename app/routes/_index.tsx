@@ -3,6 +3,7 @@ import { Form, json, Link, useActionData, useLoaderData } from "@remix-run/react
 import { prisma } from '../services/prisma.server';
 import { useState } from "react";
 import { authenticator } from "~/services/auth.server";
+import { User } from '@prisma/client'
 
 export const meta: MetaFunction = () => {
   return [
@@ -41,10 +42,9 @@ const isValidUrl = (url: string) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  type User = {
-    id: string
-  }
-  let user:User = await authenticator.isAuthenticated(request);
+  const user:User = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/login",
+  });
   const formData = await request.formData();
   const link = formData.get('link');
   const alias = formData.get('alias');
