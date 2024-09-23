@@ -35,17 +35,22 @@ export default function DashboardPage() {
   const [copied, setCopied] = useState(0)
   let links = data.map(function(link) {
     return (
-      <div className="flex" key={link.id}>
-        <input type="text" name="link" className={"bg-gray-600 text-white p-6 text-xl block w-full shadow-sm rounded-s-md text-sm focus:z-10 focus:border-violet-500 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none "} value={`https://url.cordmarston.com/l/`+link?.alias } readOnly/>
-        {copied !== link.id ? 
-          <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/l/`+link?.alias); setCopied(link.id)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
-            Copy
-          </button>
-        :
-          <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/l/`+link?.alias)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
-            &#10003; Copied
-          </button>
-        }
+      <div className="flex flex-col" key={link.id}>
+        <div className="flex">
+          <input type="text" name="link" className={"bg-gray-600 text-white p-6 text-xl block w-full shadow-sm rounded-s-md text-sm focus:z-10 focus:border-violet-500 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none "} value={`https://url.cordmarston.com/l/`+link?.alias } readOnly/>
+          {copied !== link.id ? 
+            <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/l/`+link?.alias); setCopied(link.id)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
+              Copy
+            </button>
+          :
+            <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/l/`+link?.alias)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
+              &#10003; Copied
+            </button>
+          }
+        </div>
+        <div className="bg-gray-800 text-xs rounded-b -mt-2 p-2 px-6">
+          <span className="font-bold">Redirects To:</span> { link.link }
+        </div>
       </div>
     )
   })

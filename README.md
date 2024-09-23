@@ -1,9 +1,22 @@
-# Remix URL Bookmarker
 
-A simple link bookmarking tool built in Remix. 
+# Remix URL Bookmarker (Shortener)
 
-TODO:
-- Login
-- Finish Redirect
-- Safe Guard Alias
-- Analytics?
+A URL bookmarking (or shortening depending on what domain you use it on) tool built in Remix. 
+
+
+![Screenshot](https://url.cordmarston.com/urllinks.png)
+
+
+## Demo
+
+https://url.cordmarston.com
+
+
+## Roadmap
+
+- Analytics for links
+
+- More social sign in options
+
+- Multiple domain selections for links
+
