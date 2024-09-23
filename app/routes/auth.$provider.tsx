@@ -5,6 +5,5 @@ export async function loader() {
 }
 
 export async function action({ request, params }:ActionFunctionArgs) {
-  console.log('here');
   return await authenticator.authenticate(params.provider as string, request);
 }

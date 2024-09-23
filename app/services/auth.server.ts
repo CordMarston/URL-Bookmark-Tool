@@ -71,7 +71,7 @@ let gitHubStrategy = new GitHubStrategy(
     clientSecret: process.env.github_clientSecret as string,
     redirectURI: "https://url.cordmarston.com/auth/github/callback",
   },
-  async ({ profile, request, context }) => {
+  async ({ profile }) => {
     let user = await createUser(profile);
     return user;
   }
@@ -93,6 +93,6 @@ let googleStrategy = new GoogleStrategy(
 export let authenticator = new Authenticator(sessionStorage, {
   throwOnError: true
 });
-authenticator.use(gitHubStrategy);
 
-authenticator.use(googleStrategy)
+authenticator.use(gitHubStrategy);
+authenticator.use(googleStrategy);

@@ -41,6 +41,10 @@ const isValidUrl = (url: string) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  type User = {
+    id: string
+  }
+  let user:User = await authenticator.isAuthenticated(request);
   const formData = await request.formData();
   const link = formData.get('link');
   const alias = formData.get('alias');
@@ -63,12 +67,15 @@ export const action: ActionFunction = async ({ request }) => {
     if(checkLink) {
       return json({ errors: { alias: 'Alias already used'}}, {status: 406});
     } else {
+
       const newLink = await prisma.link.create({
         data: {
           link: link,
-          alias: alias
+          alias: alias,
+          userId: (user && user.id ? user.id : null)
         }
       })
+      
       if(newLink) {
         return json({ data: newLink }, {status: 201});
       }
@@ -135,11 +142,11 @@ function UrlBookmark({ data }: ActionData) {
       <div className="flex">
         <input type="text" name="link" className={"bg-gray-600 text-white p-6 text-xl block w-full shadow-sm rounded-s-md text-sm focus:z-10 focus:border-violet-500 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none "} value={`https://url.cordmarston.com/`+data?.alias } readOnly/>
         {!copied ? 
-          <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/`+data?.alias); setCopied(true)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
+          <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/l/`+data?.alias); setCopied(true)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
             Copy
           </button>
         :
-          <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/`+data?.alias); setCopied(true)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
+          <button onClick={() => {navigator.clipboard.writeText(`https://url.cordmarston.com/l/`+data?.alias); setCopied(true)}} className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-violet-700 text-white focus:outline-none focus:bg-violet-700">
             &#10003; Copied
           </button>
         }
