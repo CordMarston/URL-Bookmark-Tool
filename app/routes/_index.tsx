@@ -112,7 +112,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 function UrlForm({ errors }: ActionData) {
   return (
-    <Form method="post" className="my-8 w-full max-w-7xl text-gray-100 rounded bg-gray-700 p-8">
+    <Form method="post" className="my-8 w-full max-w-7xl text-gray-100 rounded bg-gray-700 p-4">
       <div  className="m-2">
         <label>Full URL</label>
         {errors?.link && <label className="float-right text-red-600">{errors?.link}</label>}
@@ -138,7 +138,7 @@ function UrlForm({ errors }: ActionData) {
 function UrlBookmark({ data }: ActionData) {
   const [copied, setCopied] = useState(false);
   return (
-    <div className="my-8 w-full max-w-7xl text-gray-100  bg-gray-700 p-8">
+    <div className="my-8 w-full max-w-7xl text-gray-100  bg-gray-700 p-4">
       <div className="flex">
         <input type="text" name="link" className={"bg-gray-600 text-white p-6 text-xl block w-full shadow-sm rounded-s-md text-sm focus:z-10 focus:border-violet-500 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none "} value={`https://url.cordmarston.com/`+data?.alias } readOnly/>
         {!copied ? 
@@ -161,7 +161,7 @@ export default function Index() {
   const loaderData = useLoaderData<LoaderData>();
   return (
     <>
-      <header className="flex flex-col items-center">
+      <header className="flex flex-col items-center px-4 md:px-0">
         <h2 className="text-6xl text-gray-800 dark:text-gray-100">
           <span className="text-violet-600 font-extrabold">URL</span> Bookmark Tool
         </h2>

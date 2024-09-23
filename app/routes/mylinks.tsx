@@ -56,15 +56,15 @@ export default function DashboardPage() {
   })
   return (
     <>
-      <header className="flex flex-col items-center">
+      <header className="flex flex-col items-center p-4 md:p-0">
         <h2 className="text-6xl text-gray-800 dark:text-gray-100">
           My <span className="text-violet-600 font-extrabold">Link</span> Bookmarks
         </h2>
       </header>
-      <div className="flex justify-end w-full max-w-7xl text-right">
+      <div className="grid p-4 md:p-0 justify-stretch md:justify-end w-full max-w-7xl text-center md:text-right">
         <Link to="/"><div className="bg-violet-600 text-white p-4 rounded">+ Create Link</div></Link>
       </div>
-      <div className="mt-4 my-8 w-full max-w-7xl text-gray-100 bg-gray-700 p-8 flex flex-col gap-y-4 rounded">
+      <div className="mt-4 my-8 w-full max-w-7xl text-gray-100 bg-gray-700 p-4 flex flex-col gap-y-4 rounded">
       { links }
       </div>
     </>

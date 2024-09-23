@@ -10,12 +10,12 @@ export const meta: MetaFunction = () => {
 export default function About() {
     return (
         <>
-            <header className="flex flex-col items-center">
+            <header className="flex flex-col items-center px-4 md:px-0">
                 <h2 className="text-6xl text-gray-800 dark:text-gray-100">
                 About <span className="text-violet-600 font-extrabold">URL</span> Bookmark Tool
                 </h2>
             </header>
-            <div className="my-8 w-full max-w-7xl text-gray-100 rounded bg-gray-700 p-8 space-y-4">
+            <div className="my-8 w-full max-w-7xl text-gray-100 rounded bg-gray-700 p-4 space-y-4">
                 <p>I built this tool to allow me to seemlessly transfer links from my PC to mobile device. Eventually I play to add analytics and more, in an attempt to "clone" a URL shortening service like tinyurl.</p>
                 <p>The tool was built as a learning project. I wanted to check out what Remix had to offer as opposed to building it in my normal framework of Vue or NextJS.</p>
                 <p>To view the sourcecode of this project check it out on <Link className="underline" target="_blank" to="https://github.com/CordMarston/url_cordmarston_com">Github</Link>.</p>
