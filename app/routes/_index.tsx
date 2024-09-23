@@ -112,7 +112,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 function UrlForm({ errors }: ActionData) {
   return (
-    <Form method="post" className="my-8 w-full max-w-7xl text-gray-100 rounded bg-gray-700 p-4">
+    <Form method="post" className="my-8 w-full max-w-7xl text-gray-100 rounded p-4">
       <div  className="m-2">
         <label>Full URL</label>
         {errors?.link && <label className="float-right text-red-600">{errors?.link}</label>}
@@ -123,7 +123,7 @@ function UrlForm({ errors }: ActionData) {
         {errors?.alias && <label className="float-right text-red-600">{errors?.alias}</label>}
       </div>
       <div className="flex">
-        <div className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-s-md border border-transparent bg-gray-800 text-white focus:outline-none focus:bg-violet-700">
+        <div className="p-6 shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-s-md border border-transparent bg-gray-700 text-white focus:outline-none focus:bg-violet-700">
           https://url.cordmarston.com/
         </div>
         <input type="text" name="alias" className={"bg-gray-600 text-white p-6 text-xl block w-full shadow-sm rounded-e-md text-sm focus:z-10 focus:border-violet-500 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none " + (errors?.alias && 'border border-red-600')} placeholder="custom-alias"/>
@@ -138,7 +138,7 @@ function UrlForm({ errors }: ActionData) {
 function UrlBookmark({ data }: ActionData) {
   const [copied, setCopied] = useState(false);
   return (
-    <div className="my-8 w-full max-w-7xl text-gray-100  bg-gray-700 p-4">
+    <div className="my-8 w-full max-w-7xl text-gray-100 p-4">
       <div className="flex">
         <input type="text" name="link" className={"bg-gray-600 text-white p-6 text-xl block w-full shadow-sm rounded-s-md text-sm focus:z-10 focus:border-violet-500 focus:ring-violet-500 disabled:opacity-50 disabled:pointer-events-none "} value={`https://url.cordmarston.com/`+data?.alias } readOnly/>
         {!copied ? 

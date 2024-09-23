@@ -48,7 +48,7 @@ export default function DashboardPage() {
             </button>
           }
         </div>
-        <div className="bg-gray-800 text-xs rounded-b -mt-2 p-2 px-6">
+        <div className="bg-gray-700 text-xs rounded-b -mt-2 p-2 px-6">
           <span className="font-bold">Redirects To:</span> { link.link }
         </div>
       </div>
@@ -64,7 +64,7 @@ export default function DashboardPage() {
       <div className="grid p-4 md:p-0 justify-stretch md:justify-end w-full max-w-7xl text-center md:text-right">
         <Link to="/"><div className="bg-violet-600 text-white p-4 rounded">+ Create Link</div></Link>
       </div>
-      <div className="mt-4 my-8 w-full max-w-7xl text-gray-100 bg-gray-700 p-4 flex flex-col gap-y-4 rounded">
+      <div className="mt-4 my-8 w-full max-w-7xl text-gray-100 py-4 flex flex-col gap-y-4 rounded">
       { links }
       </div>
     </>
