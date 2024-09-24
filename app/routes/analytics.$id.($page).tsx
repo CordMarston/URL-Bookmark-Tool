@@ -1,6 +1,6 @@
-import { Link, LinkVisit, User } from "@prisma/client";
+import { Link as LinkType, LinkVisit, User } from "@prisma/client";
 import { LoaderFunction, LoaderFunctionArgs, MetaFunction, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { authenticator } from "~/services/auth.server";
 import { prisma } from "~/services/prisma.server";
 
@@ -13,10 +13,12 @@ export const meta: MetaFunction = () => {
 
 type LoaderData = {
     linkId: string,
-    link: Link,
+    link: LinkType,
     visits: Array<LinkVisit>,
     uniqueVisits: any,
-    totalVisits: any
+    totalVisits: any,
+    page: number,
+    totalPages: number
 }
 
 export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs) => {
@@ -25,7 +27,9 @@ export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs
     });
 
     let linkId:string | undefined = params.id;
-  
+    let page:number = (params.page ? parseInt(params.page) : 1);
+    let pageSize:number = 1;
+    let skip:number = (+page * +pageSize)- +pageSize;
     if(user && linkId) {
       let link = await prisma.link.findUnique({
         where: {
@@ -38,12 +42,12 @@ export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs
         return redirect('/login');
       } else {
         let visits = await prisma.linkVisit.findMany({
-            skip: 0,
-            take: 20,
+            skip: skip,
+            take: pageSize,
             where: {
                 linkId: parseInt(linkId)
             }
-        })
+        });        
 
         let uniqueVisits = await prisma.linkVisit.groupBy({
             by: ['ipAddress'],
@@ -56,14 +60,18 @@ export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs
             where: {
                 linkId: parseInt(linkId)
             }
-        })
+        });
+
+        let totalPages = Math.ceil(totalVisits / pageSize);
 
         let loaderData:LoaderData = {
             linkId: linkId,
             link: link,
             visits: visits,
             uniqueVisits: uniqueVisits,
-            totalVisits: totalVisits
+            totalVisits: totalVisits,
+            page: page,
+            totalPages: totalPages
         };
         return loaderData;
       }
@@ -72,7 +80,6 @@ export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs
   
 export default function Analytics() {
     const data: LoaderData = useLoaderData<typeof loader>();
-    console.log(data);
     let visits = data.visits.map(function(visit) {
         return (
             <tr key={visit.id}>
@@ -116,6 +123,14 @@ export default function Analytics() {
             <tbody className="text-white">
                  { visits }
             </tbody>
+            <tfoot>
+                <tr>
+                    <td className="py-4 text-right" colSpan={6}>
+                        { data.page > 1 ? <Link to={'/analytics/'+data.linkId+'/'+(+data.page-1)} className="bg-violet-600 text-white p-4 rounded text-center w-6 mr-1">&#8249;</Link> : ''}
+                        { data.totalPages > data.page ? <Link to={'/analytics/'+data.linkId+'/'+(+data.page+1)} className="bg-violet-600 text-white p-4 rounded text-center w-6">&#8250;</Link> : ''}
+                    </td>
+                </tr>
+            </tfoot>
         </table>
       </>
        
