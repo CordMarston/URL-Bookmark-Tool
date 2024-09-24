@@ -19,6 +19,7 @@ model Link {
   alias     String    @unique
   userId    String?   @map("user_id")
   user      User?     @relation(fields: [userId], references: [id])
+  visits    LinkVisit[]
   @@map("links")
 }
 
@@ -53,4 +54,18 @@ model User {
   link          Link[]
  
   @@map("users")
+}
+
+model LinkVisit {
+  id             String    @id @default(cuid())
+  linkId         Int    @map("link_id")
+  ipAddress      String?
+  osName         String?
+  osVersion      String?
+  browserName    String?
+  browserVersion String?
+  bot            Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  link           Link      @relation(fields: [linkId], references: [id])
+  @@map("visits")
 }
