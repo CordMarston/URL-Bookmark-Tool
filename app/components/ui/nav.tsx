@@ -9,13 +9,13 @@ export default function Nav(data:any) {
     return (
         <nav className="border-b border-gray-700 bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="https://url.cordmarston.com" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <svg fill="#6d28d9" className="h-8 w-8" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.045 212.045">
+                <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg fill="#7c3aed" className="h-8 w-8" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.045 212.045">
                     <path d="M167.871,0H44.84C34.82,0,26.022,8.243,26.022,18v182c0,3.266,0.909,5.988,2.374,8.091c1.752,2.514,4.573,3.955,7.598,3.954
                         c2.86,0,5.905-1.273,8.717-3.675l55.044-46.735c1.7-1.452,4.142-2.284,6.681-2.284c2.538,0,4.975,0.832,6.68,2.288l54.86,46.724
                         c2.822,2.409,5.657,3.683,8.512,3.683c4.828,0,9.534-3.724,9.534-12.045V18C186.022,8.243,177.891,0,167.871,0z"/>
                     </svg>
-                </a>
+                </Link>
                 <button data-collapse-toggle="navbar-default" onClick={() => {setMobileExpand(!mobileExpand)}} type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                     <span className="sr-only">Open main menu</span>
                     <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
