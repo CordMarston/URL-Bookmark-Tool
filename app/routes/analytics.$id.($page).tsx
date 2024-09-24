@@ -28,7 +28,7 @@ export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs
 
     let linkId:string | undefined = params.id;
     let page:number = (params.page ? parseInt(params.page) : 1);
-    let pageSize:number = 1;
+    let pageSize:number = 10;
     let skip:number = (+page * +pageSize)- +pageSize;
     if(user && linkId) {
       let link = await prisma.link.findUnique({
