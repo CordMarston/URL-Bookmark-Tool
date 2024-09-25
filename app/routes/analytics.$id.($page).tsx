@@ -46,6 +46,9 @@ export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs
             take: pageSize,
             where: {
                 linkId: parseInt(linkId)
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         });        
 
@@ -80,15 +83,20 @@ export let loader: LoaderFunction = async ({ request, params}:LoaderFunctionArgs
   
 export default function Analytics() {
     const data: LoaderData = useLoaderData<typeof loader>();
+
+    function formatDateUtc(date:string | Date) {
+        return new Date(date).toLocaleString('en-US');
+    }
+
     let visits = data.visits.map(function(visit) {
         return (
-            <tr key={visit.id}>
+            <tr className="hover:bg-gray-700 border-b border-gray-700" key={visit.id}>
                 <td className="p-4">{visit.ipAddress}</td>
                 <td className="p-4">{visit.osName}</td>
                 <td className="p-4">{visit.osVersion}</td>
                 <td className="p-4">{visit.browserName}</td>
                 <td className="p-4">{visit.browserVersion}</td>
-                <td className="p-4">{visit.createdAt.toString()}</td>
+                <td className="p-4">{formatDateUtc(visit.createdAt.toString())}</td>
             </tr>
         )
     })
@@ -109,29 +117,31 @@ export default function Analytics() {
                 <div className="text-7xl">{ data.uniqueVisits.length }</div>
             </div>
         </div>
-        <table className="w-full max-w-7xl">
-            <thead className="bg-gray-800 text-white">
-                <tr>
-                    <th className="p-4 text-left">IP Address</th>
-                    <th className="p-4 text-left">OS</th>
-                    <th className="p-4 text-left">OS Version</th>
-                    <th className="p-4 text-left">Browser</th>
-                    <th className="p-4 text-left">Browser Version</th>
-                    <th className="p-4 text-left">Visit Date</th>
-                </tr>
-            </thead>
-            <tbody className="text-white">
-                 { visits }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td className="py-4 text-right" colSpan={6}>
-                        { data.page > 1 ? <Link to={'/analytics/'+data.linkId+'/'+(+data.page-1)} className="bg-violet-600 text-white p-4 rounded text-center w-6 mr-1">&#8249;</Link> : ''}
-                        { data.totalPages > data.page ? <Link to={'/analytics/'+data.linkId+'/'+(+data.page+1)} className="bg-violet-600 text-white p-4 rounded text-center w-6">&#8250;</Link> : ''}
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+        <div className="relative overflow-x-auto w-full max-w-7xl">
+            <table className="w-full max-w-7xl">
+                <thead className="bg-gray-800 text-white">
+                    <tr>
+                        <th className="p-4 text-left">IP Address</th>
+                        <th className="p-4 text-left">OS</th>
+                        <th className="p-4 text-left">OS Version</th>
+                        <th className="p-4 text-left">Browser</th>
+                        <th className="p-4 text-left">Browser Version</th>
+                        <th className="p-4 text-left">Visit Date</th>
+                    </tr>
+                </thead>
+                <tbody className="text-white">
+                    { visits }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td className="py-4 text-right" colSpan={6}>
+                            { data.page > 1 ? <Link to={'/analytics/'+data.linkId+'/'+(+data.page-1)} className="bg-violet-600 text-white p-4 rounded text-center w-6 mr-1">&#8249;</Link> : ''}
+                            { data.totalPages > data.page ? <Link to={'/analytics/'+data.linkId+'/'+(+data.page+1)} className="bg-violet-600 text-white p-4 rounded text-center w-6">&#8250;</Link> : ''}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
       </>
        
     )

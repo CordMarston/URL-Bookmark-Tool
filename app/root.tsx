@@ -40,9 +40,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div className="flex flex-col h-screen w-screen bg-gradient-to-b from-gray-900 to-gray-800">
+        <div className="flex flex-col min-h-screen w-full bg-gradient-to-b from-gray-900 to-gray-800">
           <Nav data={data}/>
-          <div className="grow flex flex-col items-center w-screen justify-center">
+          <div className="grow flex flex-col items-center w-full justify-center py-4">
             {children}
           </div>
         </div>
