@@ -41,6 +41,10 @@ const isValidUrl = (url: string) => {
   return !!urlPattern.test(url);
 }
 
+const isValidAlias = (alias: string) => {
+  return /^[A-Za-z0-9]*$/.test(alias);
+}
+
 export const action: ActionFunction = async ({ request }) => {
   const user:User = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
@@ -55,6 +59,10 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (!isValidUrl(link)) {
     return json({ errors: { link: 'Invalid URL' } }, { status: 406 });
+  }
+
+  if(alias && typeof alias == 'string' && !isValidAlias(alias)) {
+    return json({ errors: { alias: 'Invalid alias' } }, { status: 406 });
   }
 
   if(alias && typeof alias == 'string') {
