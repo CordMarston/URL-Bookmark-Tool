@@ -23,7 +23,12 @@ export let loader: LoaderFunction = async ({ request }) => {
     return await prisma.link.findMany({
       where: {
         userId: user.id
-      }
+      },
+      orderBy: [
+        {
+          id: 'desc',
+        },
+      ],
     })
   } else {
     return null;
@@ -57,8 +62,8 @@ export default function MyLinks() {
             </button>
           }
         </div>
-        <div className="bg-gray-700 text-xs rounded-b -mt-2 p-2 px-6">
-          <span className="font-bold">Redirects To:</span> { link.link }
+        <div className="bg-gray-700 text-xs rounded-b -mt-2 p-2 px-6 truncate">
+          <span className="font-bold">Redirects To:</span> { link.link}
         </div>
       </div>
     )

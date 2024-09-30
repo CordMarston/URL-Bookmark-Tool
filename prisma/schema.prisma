@@ -15,7 +15,7 @@ datasource db {
 
 model Link {
   id        Int       @id @default(autoincrement())
-  link      String
+  link      String    @db.LongText
   alias     String    @unique
   userId    String?   @map("user_id")
   user      User?     @relation(fields: [userId], references: [id])
